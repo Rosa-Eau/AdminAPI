@@ -44,7 +44,9 @@ public class TutorService {
     public Long deleteTutor(Long tutorId) {
 
         tutorRepository.findById(tutorId).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강사입니다."));
+
         tutorRepository.deleteById(tutorId);
+
         return tutorId;
     }
 
