@@ -6,6 +6,8 @@ import com.sparta.classapi.domain.user.entity.UserRoleEnum;
 import com.sparta.classapi.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

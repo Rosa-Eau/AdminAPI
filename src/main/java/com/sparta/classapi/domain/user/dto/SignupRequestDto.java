@@ -1,5 +1,6 @@
 package com.sparta.classapi.domain.user.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class SignupRequestDto {
     private String password;
 
     @NotBlank
+    @Schema(example = "DEVELOPER/CURRICULUM/MARKETING")
     private String team;
 
     public SignupRequestDto(String email, String password, String team) {
