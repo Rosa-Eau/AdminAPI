@@ -1,7 +1,6 @@
-package com.sparta.classapi.global.security.jwt.filter;
+package com.sparta.classapi.global.jwt;
 
-import com.sparta.classapi.global.security.jwt.JwtUtil;
-import com.sparta.classapi.global.security.user.UserDetailsServiceImpl;
+import com.sparta.classapi.global.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -23,17 +23,12 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String team;
-
-    @Column(nullable = false)
-    // Enum 을 데이터베이스에 저장
     @Enumerated(value = EnumType.STRING)
-    private UserRoleEnum role;
+    private UserRoleEnum team;
 
-    public User(String email, String password, String team, UserRoleEnum role) {
+    public User(String email, String password, UserRoleEnum team) {
         this.email = email;
         this.password = password;
-        this.email = email;
-        this.role = role;
+        this.team = team;
     }
 }

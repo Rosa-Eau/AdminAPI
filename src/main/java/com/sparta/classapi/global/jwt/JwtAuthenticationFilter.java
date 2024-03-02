@@ -1,10 +1,9 @@
-package com.sparta.classapi.global.security.jwt.filter;
+package com.sparta.classapi.global.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.classapi.domain.user.dto.LoginRequestDto;
 import com.sparta.classapi.domain.user.entity.UserRoleEnum;
-import com.sparta.classapi.global.security.jwt.JwtUtil;
-import com.sparta.classapi.global.security.user.UserDetailsImpl;
+import com.sparta.classapi.global.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +31,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
 
+            log.info(requestDto.toString());
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             requestDto.getEmail(),
@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info("로그인 성공 및 JWT 생성");
         String email = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
-        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
+        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getTeam();
 
         String token = jwtUtil.createToken(email, role);
         jwtUtil.addJwtToCookie(token, response);
