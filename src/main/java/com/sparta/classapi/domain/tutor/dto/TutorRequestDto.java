@@ -1,10 +1,6 @@
 package com.sparta.classapi.domain.tutor.dto;
 
 import com.sparta.classapi.domain.tutor.entity.Tutor;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
 
 @Getter

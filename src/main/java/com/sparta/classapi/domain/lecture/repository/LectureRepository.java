@@ -12,4 +12,6 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
     List<Lecture> findByCategory(Category category);
 
     List<Lecture> findByTutorOrderByRegisteredAtDesc(Tutor tutor);
+
+    void deleteByTutorId(Long tutorId);
 }

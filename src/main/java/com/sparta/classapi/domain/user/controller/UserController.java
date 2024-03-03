@@ -4,19 +4,15 @@ import com.sparta.classapi.domain.user.dto.LoginRequestDto;
 import com.sparta.classapi.domain.user.dto.SignupRequestDto;
 import com.sparta.classapi.domain.user.service.UserService;
 import com.sparta.classapi.global.handler.ValidHelper;
-import com.sparta.classapi.global.security.SecurityUtil;
-import com.sparta.classapi.global.security.UserDetailsImpl;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/user")
@@ -46,11 +42,8 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequestDto requestDto, BindingResult bindingResult) {
-        SecurityUtil.getCurrentUserId();
         // Validation 예외처리
-        if (ValidHelper.validation(bindingResult)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
-        }
+        ValidHelper.validation(bindingResult);
 
         try {
             userService.signup(requestDto);

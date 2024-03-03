@@ -3,7 +3,6 @@ package com.sparta.classapi.global.security;
 import com.sparta.classapi.domain.user.entity.User;
 import com.sparta.classapi.domain.user.entity.UserRoleEnum;
 import lombok.Getter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

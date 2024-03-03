@@ -48,7 +48,7 @@ public class Lecture {
         this.name = requestDto.getName();
         this.cost = requestDto.getCost();
         this.description = requestDto.getDescription();
-        this.category = this.category;
+        this.category = category;
         this.tutor = tutor;
     }
 }

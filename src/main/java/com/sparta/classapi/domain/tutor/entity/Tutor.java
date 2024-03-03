@@ -1,7 +1,6 @@
 package com.sparta.classapi.domain.tutor.entity;
 
 import com.sparta.classapi.domain.tutor.dto.TutorRequestDto;
-import com.sparta.classapi.domain.tutor.dto.TutorResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
 

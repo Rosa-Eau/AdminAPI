@@ -75,6 +75,7 @@ public class LectureService {
     public LectureResponseDto updateLecture(Long lectureId, LectureRequestDto requestDto) {
 
         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강의입니다."));
+
         Tutor tutor = tutorRepository.findById(lecture.getTutor().getId()).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강사입니다."));
 
         Category category = Category.valueOf(requestDto.getCategory());
@@ -87,7 +88,7 @@ public class LectureService {
     @Transactional
     public Long deleteLecture(Long lectureId) {
 
-        if(!lectureRepository.existsById(lectureId)){
+        if (!lectureRepository.existsById(lectureId)) {
             throw new IllegalArgumentException("등록되지 않은 강의입니다.");
         }
 
