@@ -46,7 +46,6 @@ public class LectureController {
 
     @GetMapping
     public ResponseEntity<?> readLectureListbyCategory(@RequestParam String category) {
-        log.info("들어와 지기는 해?");
         try {
             return ResponseEntity.ok(lectureService.readLectureListbyCategory(category));
         } catch (Exception e) {
