@@ -1,15 +1,9 @@
-package com.sparta.classapi.domain.tutor.dto;
+package com.sparta.classapi.domain.lecture.dto;
 
 import com.sparta.classapi.domain.lecture.entity.Category;
 import com.sparta.classapi.domain.lecture.entity.Lecture;
 import com.sparta.classapi.domain.tutor.entity.Tutor;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 @Getter
 public class LectureRequestDto {
@@ -20,11 +14,11 @@ public class LectureRequestDto {
 
     private String description;
 
-    private Category category;
+    private String category;
 
     private Long tutorId;
 
-    public Lecture toEntity(Tutor tutor) {
+    public Lecture toEntity(Tutor tutor, Category category) {
         return Lecture.builder()
                 .name(name)
                 .cost(cost)

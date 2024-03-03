@@ -37,8 +37,7 @@ public class TutorController {
     public ResponseEntity<?> createTutor(@Valid @RequestBody TutorRequestDto requestDto, BindingResult bindingResult) {
         ValidHelper.validation(bindingResult);
         try {
-            return ResponseEntity.ok()
-                    .body(tutorService.createTutor(requestDto));
+            return ResponseEntity.ok(tutorService.createTutor(requestDto));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

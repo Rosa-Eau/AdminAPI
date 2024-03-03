@@ -1,11 +1,15 @@
 package com.sparta.classapi.domain.lecture.dto;
 
-
-import com.sparta.classapi.domain.lecture.entity.Category;
 import com.sparta.classapi.domain.lecture.entity.Lecture;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LectureResponseDto {
     private String name;
 
@@ -13,7 +17,7 @@ public class LectureResponseDto {
 
     private String description;
 
-    private Category category;
+    private String category;
 
     private LocalDateTime registeredAt;
 
@@ -24,7 +28,7 @@ public class LectureResponseDto {
         this.name = lecture.getName();
         this.cost = lecture.getCost();
         this.description = lecture.getDescription();
-        this.category = lecture.getCategory();
+        this.category = lecture.getCategory().getCategory();
         this.registeredAt = lecture.getRegisteredAt();
         this.tutorId = lecture.getTutor().getId();
     }

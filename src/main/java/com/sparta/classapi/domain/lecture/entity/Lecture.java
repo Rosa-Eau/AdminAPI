@@ -1,7 +1,6 @@
 package com.sparta.classapi.domain.lecture.entity;
 
-import com.sparta.classapi.domain.tutor.dto.LectureRequestDto;
-import com.sparta.classapi.domain.tutor.dto.TutorRequestDto;
+import com.sparta.classapi.domain.lecture.dto.LectureRequestDto;
 import com.sparta.classapi.domain.tutor.entity.Tutor;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,11 +44,11 @@ public class Lecture {
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
 
-    public void update(LectureRequestDto requestDto, Tutor tutor) {
+    public void update(LectureRequestDto requestDto, Tutor tutor, Category category) {
         this.name = requestDto.getName();
         this.cost = requestDto.getCost();
         this.description = requestDto.getDescription();
-        this.category = requestDto.getCategory();
+        this.category = this.category;
         this.tutor = tutor;
     }
 }

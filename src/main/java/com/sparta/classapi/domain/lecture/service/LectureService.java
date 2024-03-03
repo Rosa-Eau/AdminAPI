@@ -4,7 +4,7 @@ import com.sparta.classapi.domain.lecture.dto.LectureResponseDto;
 import com.sparta.classapi.domain.lecture.entity.Category;
 import com.sparta.classapi.domain.lecture.entity.Lecture;
 import com.sparta.classapi.domain.lecture.repository.LectureRepository;
-import com.sparta.classapi.domain.tutor.dto.LectureRequestDto;
+import com.sparta.classapi.domain.lecture.dto.LectureRequestDto;
 import com.sparta.classapi.domain.tutor.entity.Tutor;
 import com.sparta.classapi.domain.tutor.repository.TutorRepository;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,13 @@ public class LectureService {
     @Transactional
     public LectureResponseDto createLecture(LectureRequestDto requestDto) {
 
+        Category category = Category.valueOf(requestDto.getCategory());
+
         Tutor tutor = tutorRepository.findById(requestDto.getTutorId()).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강사입니다."));
 
-        Lecture lecture = lectureRepository.save(requestDto.toEntity(tutor));
+        Lecture lecture = lectureRepository.save(requestDto.toEntity(tutor, category));
 
         return new LectureResponseDto(lecture);
-
-
     }
 
     @Transactional(readOnly = true)
@@ -46,9 +46,11 @@ public class LectureService {
 
 
     @Transactional(readOnly = true)
-    public List<LectureResponseDto> readLectureListbyCategory(Category category) {
+    public List<LectureResponseDto> readLectureListbyCategory(String category) {
 
-        List<Lecture> lectures = lectureRepository.findByCategory(category);
+        Category categoryEnum = Category.valueOf(category);
+
+        List<Lecture> lectures = lectureRepository.findByCategory(categoryEnum);
 
         return lectures.stream().map(LectureResponseDto::new).collect(Collectors.toList());
     }
@@ -71,9 +73,13 @@ public class LectureService {
 
     @Transactional
     public LectureResponseDto updateLecture(Long lectureId, LectureRequestDto requestDto) {
-        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강의입니다."));
 
-        lecture.update(requestDto);
+        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강의입니다."));
+        Tutor tutor = tutorRepository.findById(lecture.getTutor().getId()).orElseThrow(() -> new IllegalArgumentException("등록되지 않은 강사입니다."));
+
+        Category category = Category.valueOf(requestDto.getCategory());
+
+        lecture.update(requestDto, tutor, category);
 
         return new LectureResponseDto(lecture);
     }

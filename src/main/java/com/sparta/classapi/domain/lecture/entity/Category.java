@@ -1,11 +1,17 @@
 package com.sparta.classapi.domain.lecture.entity;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum Category {
-    SPRING("SPRING"), REACT("REACT"), NODE("NODE");
+    NODE("NODE"), REACT("REACT"), SPRING("SPRING");
+
+    @JsonValue
     private final String category;
+
+    Category(String category) {
+        this.category = category;
+    }
+
 }
