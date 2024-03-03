@@ -1,4 +1,4 @@
-# ClassAPI
+# AdminAPI
 
 ## Use Case Diagram
 ![usecase](./src/main/resources/static/UseCaseDiagram.svg)
