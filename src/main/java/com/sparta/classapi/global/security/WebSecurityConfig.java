@@ -1,11 +1,8 @@
 package com.sparta.classapi.global.security;
 
-import com.sparta.classapi.domain.user.entity.UserRoleEnum;
 import com.sparta.classapi.global.jwt.JwtAuthenticationFilter;
 import com.sparta.classapi.global.jwt.JwtAuthorizationFilter;
 import com.sparta.classapi.global.jwt.JwtUtil;
-import com.sparta.classapi.global.security.UserDetailsServiceImpl;
-import io.jsonwebtoken.Jwts;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +13,21 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.Date;
 
 @Configuration
 @EnableWebSecurity // Spring Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
+    private static final String[] API_WHITE_LIST = {
+            "/api/user/**",
+            "/error",
+            "/v3/api-docs/**" ,
+            "/swagger-ui/**",
+            "/swagger-resources/**"
+    };
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
@@ -67,8 +68,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                        .requestMatchers("/api/user/**").permitAll()
-                        .requestMatchers("/error").permitAll()
+                        .requestMatchers(API_WHITE_LIST).permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
