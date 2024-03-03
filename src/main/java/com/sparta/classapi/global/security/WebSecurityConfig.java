@@ -26,7 +26,8 @@ public class WebSecurityConfig {
             "/error",
             "/v3/api-docs/**" ,
             "/swagger-ui/**",
-            "/swagger-resources/**"
+            "/swagger-resources/**",
+            "swagger-ui.html"
     };
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;

@@ -4,7 +4,7 @@ package com.sparta.classapi.domain.lecture.controller;
 import com.sparta.classapi.domain.lecture.dto.LectureRequestDto;
 import com.sparta.classapi.domain.lecture.service.LectureService;
 import com.sparta.classapi.domain.user.entity.UserRoleEnum;
-import com.sparta.classapi.global.handler.ValidHelper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,17 +24,17 @@ public class LectureController {
         this.lectureService = lectureService;
     }
 
+    @Tag(name = "createLecture", description = "강의 등록")
     @PostMapping
     public ResponseEntity<?> createLecture(@Valid @RequestBody LectureRequestDto requestDto, BindingResult bindingResult) {
-        ValidHelper.validation(bindingResult);
         try {
             return ResponseEntity.ok(lectureService.createLecture(requestDto));
-//                    .body(lectureService.createLecture(requestDto));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
+    @Tag(name = "readLecture", description = "선택 강의 조회")
     @GetMapping("/{lectureId}")
     public ResponseEntity<?> readLecture(@PathVariable Long lectureId) {
         try {
@@ -56,7 +56,6 @@ public class LectureController {
     @Secured(UserRoleEnum.Authority.MANAGER)
     @PutMapping("/{lectureId}")
     public ResponseEntity<?> updateLecture(@Valid @PathVariable Long lectureId, @RequestBody LectureRequestDto requestDto, BindingResult bindingResult) {
-        ValidHelper.validation(bindingResult);
         try {
             return ResponseEntity.ok()
                     .body(lectureService.updateLecture(lectureId, requestDto));

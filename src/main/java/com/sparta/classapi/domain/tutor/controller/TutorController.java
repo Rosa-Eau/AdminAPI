@@ -5,7 +5,6 @@ import com.sparta.classapi.domain.lecture.service.LectureService;
 import com.sparta.classapi.domain.tutor.dto.TutorRequestDto;
 import com.sparta.classapi.domain.tutor.service.TutorService;
 import com.sparta.classapi.domain.user.entity.UserRoleEnum;
-import com.sparta.classapi.global.handler.ValidHelper;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,6 @@ public class TutorController {
 
     @PostMapping
     public ResponseEntity<?> createTutor(@Valid @RequestBody TutorRequestDto requestDto, BindingResult bindingResult) {
-        ValidHelper.validation(bindingResult);
         try {
             return ResponseEntity.ok(tutorService.createTutor(requestDto));
         } catch (Exception e) {
@@ -58,7 +56,6 @@ public class TutorController {
     @Secured(UserRoleEnum.Authority.MANAGER)
     @PutMapping("/{tutorId}")
     public ResponseEntity<?> updateTutorInfo(@Valid @PathVariable Long tutorId, @RequestBody TutorRequestDto requestDto, BindingResult bindingResult) {
-        ValidHelper.validation(bindingResult);
         try {
             return ResponseEntity.ok()
                     .body(tutorService.updateTutor(tutorId, requestDto));
